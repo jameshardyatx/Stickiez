@@ -112,6 +112,8 @@ a:hover {
   margin-bottom: 1rem;
   max-height: 12lh;
   overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .note-buttons {
