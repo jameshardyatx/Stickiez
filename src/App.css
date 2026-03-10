@@ -1,0 +1,216 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-accent: #45CDE4;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 1rem;
+  gap: 1rem;
+}
+
+.note {
+  background: #333;
+  padding: 1rem;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  min-height: 8lh;
+  max-width: 90ch;
+}
+
+.title {
+  border-bottom: 1px solid #eee;
+  grid-column: 1 / -1;
+  font-size: 12px;
+}
+
+.note-title {
+  color: #aaa;
+  max-width: 18ch;
+  min-width: 4ch;
+}
+
+.note-text {
+  margin-bottom: 1rem;
+  max-height: 12lh;
+  overflow-y: auto;
+}
+
+.note-buttons {
+  margin-right: auto;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.copy-btn {
+  width: 10ch;
+}
+
+.delete-btn {
+  background: #4d0f0f;
+  width: 12ch;
+}
+
+.text-dim {
+  color: #999;
+  font-style: italic;
+}
+
+.note .modal {
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: monospace;
+  position: relative;
+}
+
+.modal-menu {
+  padding: 0;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  background: black;
+  padding: 1rem;
+}
+
+.modal-menu li {
+  list-style-type: none;
+}
+
+.note-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-btn {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-family: monospace;
+  font-size: 15px;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background: var(--color-accent);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
