@@ -2,6 +2,12 @@ import type { NoteContent } from "./TNoteContent";
 
 const STORAGE_KEY = "notes";
 
+const introNote = {
+    id: "introNote",
+    title: "Hello!",
+    body: "Welcome to StickiEZ. This is a sticky notes app designed with security, usability, and speed in mind."
+}
+
 export function loadNotesFromStorage(): NoteContent[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
