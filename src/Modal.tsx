@@ -21,7 +21,6 @@ function Modal(props: ModalProps) {
             clearTimeout(deleteTimerId);
             props.onDelete(props.id);
         }
-        console.log(deleteStage);
     }
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
