@@ -20,12 +20,12 @@ function Note(props: NoteProps) {
 
     const [draftTitle, setDraftTitle] = useState(props.note.title);
     const [draftBody, setDraftBody] = useState(props.note.body);
-    const [currentColor, setCurrentColor] = useState(props.note.color);
+    //const [currentColor, setCurrentColor] = useState(props.note.color);
 
     useEffect(() => {
         setDraftTitle(props.note.title);
         setDraftBody(props.note.body);
-        setCurrentColor(props.note.color);
+        //setCurrentColor(props.note.color);
     }, [props.note.title, props.note.body, props.note.color]);
 
     function commitTitle() {
