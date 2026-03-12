@@ -4,6 +4,7 @@ import Note from "./Note";
 import AddButton from "./AddButton";
 import type { NoteContent } from "./TNoteContent";
 import { loadNotesFromStorage, saveNotesToStorage } from "./storage";
+//import { NoteColors } from "./NoteColors";
 
 function App() {
   const [notes, setNotes] = useState<NoteContent[]>(() => loadNotesFromStorage());
@@ -19,6 +20,7 @@ function App() {
         title: "",
         body: "",
         id: crypto.randomUUID(),
+        color: "white"
       },
     ]);
   }
@@ -29,7 +31,7 @@ function App() {
 
   function updateNote(
     id: string,
-    patch: Partial<Pick<NoteContent, "title" | "body">>
+    patch: Partial<Pick<NoteContent, "title" | "body" | "color">>
   ) {
     setNotes((prev) => prev.map((n) => (n.id === id ? { ...n, ...patch } : n)));
   }

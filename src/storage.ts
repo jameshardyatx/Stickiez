@@ -5,7 +5,8 @@ const STORAGE_KEY = "notes";
 const introNote: NoteContent = {
     id: "introNote",
     title: "Hello!",
-    body: "Welcome to StickiEZ! This is a sticky notes app designed with security, usability, and speed in mind. Click on the title or body of a note to modify it. Feel free to delete this note by clicking the ... menu, and create a new note with the add button in the bottom right."
+    body: "Welcome to StickiEZ! This is a sticky notes app designed with security, usability, and speed in mind. Click on the title or body of a note to modify it. Feel free to delete this note by clicking the ... menu, and create a new note with the add button in the bottom right.",
+    color: "white"
 }
 
 export function loadNotesFromStorage(): NoteContent[] {
@@ -29,6 +30,7 @@ export function loadNotesFromStorage(): NoteContent[] {
         id: typeof n.id === "string" ? n.id : crypto.randomUUID(),
         title: typeof n.title === "string" ? n.title : "",
         body: typeof n.body === "string" ? n.body : "",
+        color: typeof n.color === "string" ? n.color : "white",
       }));
   } catch {
     return [];

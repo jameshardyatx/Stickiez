@@ -1,9 +1,12 @@
 import { useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
+import ColorPicker from "./ColorPicker";
+import type { NoteContent } from "./TNoteContent";
 
 type ModalProps = {
     id: string,
     onDelete: (id: string) => void;
+    onUpdate: (id: string, patch: Partial<Pick<NoteContent, "title" | "body" | "color">>) => void;
 }
 
 function Modal(props: ModalProps) {
@@ -42,6 +45,10 @@ function Modal(props: ModalProps) {
 
                 {modalIsOpen ?
                     <menu className="modal-menu" >
+                        <ColorPicker
+                            id={props.id}
+                            onUpdate={props.onUpdate}
+                        />
                         <li><button
                             onClick={safeDelete}
                             className="delete-btn"
@@ -53,6 +60,7 @@ function Modal(props: ModalProps) {
                     null
 
                 }
+                
             </div>
 
         </>

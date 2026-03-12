@@ -68,6 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
 
   --color-accent: #45CDE4;
+  /* --color-note: oklch(0.7 0.13 290.52); */
 }
 
 a {
@@ -103,7 +104,7 @@ a:hover {
 }
 
 .note-title {
-  color: #aaa;
+  color: var(--color-note);
   max-width: 18ch;
   min-width: 4ch;
 }
@@ -126,11 +127,24 @@ a:hover {
 
 .copy-btn {
   width: 10ch;
+  background-color: var(--color-note);
+  color: #333;
 }
 
 .delete-btn {
   background: #4d0f0f;
   width: 12ch;
+  font-size: 14px;
+  border-radius: 0;
+  padding: .3em .6em
+}
+
+[contenteditable]:focus-visible {
+  outline: none;
+}
+
+.editable {
+  display: inline-block;
 }
 
 .text-dim {
@@ -144,9 +158,18 @@ a:hover {
   font-weight: bold;
   font-family: monospace;
   position: relative;
+  color: var(--color-note);
+}
+
+.note hr {
+  border: 2px solid var(--color-note);
 }
 
 .modal-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
   padding: 0;
   position: absolute;
   top: 25px;
@@ -179,6 +202,24 @@ a:hover {
   bottom: 10px;
   background: var(--color-accent);
 }
+
+.color-picker {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.color-swatch {
+  padding: 1rem;
+}
+
+.note[data-color="white"] {--color-note: #d4d4d4}
+.note[data-color="lightblue"] {--color-note: oklch(0.7 0.13 229.46)}
+.note[data-color="purple"] {--color-note: oklch(0.7 0.13 290.52)}
+.note[data-color="lilac"] {--color-note: oklch(0.7 0.13 331.75)}
+.note[data-color="emerald"] {--color-note: oklch(0.7 0.13 176.47)}
+.note[data-color="gold"] {--color-note: oklch(0.7 0.13 105.73)}
+.note[data-color="orange"] {--color-note: oklch(0.7 0.13 63.79)}
+.note[data-color="rose"] {--color-note: oklch(0.7 0.13 18.3)}
 
 h1 {
   font-size: 3.2em;
