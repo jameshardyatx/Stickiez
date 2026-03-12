@@ -122,7 +122,13 @@ a:hover {
   max-height: 12lh;
   overflow-y: auto;
   white-space: pre-wrap;
-  overflow-wrap: anywhere;
+  overflow-wrap: anywhere; 
+  scrollbar-color: var(--color-note) transparent;
+  scrollbar-width: thin;
+}
+
+.note-text::-webkit-scrollbar-track {
+  background-color: var(--color-note);
 }
 
 .note-buttons {
