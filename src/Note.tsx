@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import type { NoteContent } from "./TNoteContent";
 import Modal from "./Modal";
+import 'animate.css';
+import PlayAnimation from "./PlayAnimation";
 
 type NoteProps = {
     note: NoteContent,
-    onDelete: (id: string) => void;
-    onUpdate: (id: string, patch: Partial<Pick<NoteContent, "title" | "body" | "color">>) => void;
+    renderOrder: number,
+    onDelete: (id: string) => void,
+    onUpdate: (id: string, patch: Partial<Pick<NoteContent, "title" | "body" | "color">>) => void,
 }
 
 async function copyNote(text: string): Promise<void> {
@@ -20,12 +23,10 @@ function Note(props: NoteProps) {
 
     const [draftTitle, setDraftTitle] = useState(props.note.title);
     const [draftBody, setDraftBody] = useState(props.note.body);
-    //const [currentColor, setCurrentColor] = useState(props.note.color);
 
     useEffect(() => {
         setDraftTitle(props.note.title);
         setDraftBody(props.note.body);
-        //setCurrentColor(props.note.color);
     }, [props.note.title, props.note.body, props.note.color]);
 
     function commitTitle() {
@@ -38,20 +39,16 @@ function Note(props: NoteProps) {
         if (next !== props.note.body) props.onUpdate(props.note.id, { body: next });
     }
 
-    // function toggleEditable(event: React.MouseEvent<HTMLElement>) {
-    //     const el = event.target as HTMLElement;
-    //     el.contentEditable = el.contentEditable === "true" ? "false" : "true";
-    //     // if(el.contentEditable !== "true") {
-    //     //     el.contentEditable = "true";
-    //     // }
-    // }
-
     return (
         <>
-            <div className="note" data-color={props.note.color ? props.note.color : "white"}>
+            <div
+                className="note animate__animated animate__fadeIn"
+                data-color={props.note.color ? props.note.color : "white"}
+                style={{ "--animation-offset": `${props.renderOrder * 100}ms` } as React.CSSProperties}
+            >
                 <div className="note-header">
                     <span
-                        className="editable"
+                        className="editable note-title"
                         contentEditable
                         suppressContentEditableWarning={true}
                         onInput={(e) => setDraftTitle(e.currentTarget.textContent ?? "")}
@@ -63,11 +60,11 @@ function Note(props: NoteProps) {
                             }
                         }}
                     >
-                        {props.note.title ? <h2 className="note-title">{props.note.title}</h2> : <h2 className="text-dim">Untitled note</h2>}
+                        {props.note.title}
                     </span>
 
-                    <Modal 
-                        id={props.note.id} 
+                    <Modal
+                        id={props.note.id}
                         onDelete={props.onDelete}
                         onUpdate={props.onUpdate}
                     />
@@ -76,17 +73,22 @@ function Note(props: NoteProps) {
                 <hr />
 
                 <span
-                    className="editable" 
+                    className="editable note-text"
                     contentEditable
                     suppressContentEditableWarning={true}
                     onInput={(e) => setDraftBody(e.currentTarget.textContent ?? "")}
                     onBlur={commitBody}
                 >
-                    {props.note.body ? <p className="note-text">{props.note.body}</p> : <p className="text-dim">Click to edit...</p>}
+                    {props.note.body}
                 </span>
 
                 <div className="note-buttons">
-                    <button className="copy-btn" onClick={() => void copyNote(props.note.body)}>
+                    <button
+                        className="copy-btn"
+                        onClick={(e) => {
+                            copyNote(props.note.body);
+                            PlayAnimation(e.currentTarget, "rubberBand");
+                        }}>
                         Copy
                     </button>
 

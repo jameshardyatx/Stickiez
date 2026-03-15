@@ -15,6 +15,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
+
 body {
   /* 4. Add accessible line-height */
   line-height: 1.5;
@@ -69,6 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 
   --color-accent: #45CDE4;
   /* --color-note: oklch(0.7 0.13 290.52); */
+  --text-dim: #888;
 }
 
 a {
@@ -103,6 +110,8 @@ a:hover {
   flex-direction: column;
   min-height: 8lh;
   max-width: 90ch;
+  animation-delay: var(--animation-offset);
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.25);
 }
 
 .title {
@@ -115,6 +124,25 @@ a:hover {
   color: var(--color-note);
   max-width: 18ch;
   min-width: 4ch;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.editable.note-title:empty::before {
+  content: "Untitled note";
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.editable.note-text:empty::before {
+  content: "Click to edit...";
+  color: var(--text-dim);
+  pointer-events: none;
+  font-style: italic;
+}
+
+.editable:focus:empty::before {
+  content: "";
 }
 
 .note-text {
@@ -145,6 +173,10 @@ a:hover {
   color: #333;
 }
 
+.copy-btn:focus, .copy-btn:focus-visible {
+  outline: none;
+}
+
 .delete-btn {
   background: #4d0f0f;
   width: 12ch;
@@ -157,9 +189,6 @@ a:hover {
   outline: none;
 }
 
-.editable {
-  display: inline-block;
-}
 
 .text-dim {
   color: #999;
@@ -215,6 +244,7 @@ a:hover {
   right: 10px;
   bottom: 10px;
   background: var(--color-accent);
+  box-shadow: 6px 6px 10px rgba(10,10,0,0.5);
 }
 
 .color-picker {

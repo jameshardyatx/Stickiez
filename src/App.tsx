@@ -40,10 +40,11 @@ function App() {
     <>
       <h1 className="title">My StickiEZ</h1>
 
-      {notes.map((note) => (
+      {notes.map((note, index) => (
         <Note
           key={note.id}
           note={note}
+          renderOrder={note.title === "" ? 0 : index}
           onDelete={deleteNote}
           onUpdate={updateNote}
         />

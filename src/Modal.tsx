@@ -28,7 +28,7 @@ function Modal(props: ModalProps) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const ref = useOnclickOutside(() => {
+    const clickRef = useOnclickOutside(() => {
         setModalIsOpen(false);
     });
 
@@ -38,13 +38,13 @@ function Modal(props: ModalProps) {
 
     return (
         <>
-            <div className="modal" ref={ref}>
+            <div className="modal" ref={clickRef}>
                 <span onClick={toggleModal}>
                     {modalIsOpen ? "X" : "..."}
                 </span>
 
                 {modalIsOpen ?
-                    <menu className="modal-menu" >
+                    <menu className="modal-menu animate__animated animate__bounceIn" >
                         <ColorPicker
                             id={props.id}
                             onUpdate={props.onUpdate}
