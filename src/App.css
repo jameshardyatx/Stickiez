@@ -231,6 +231,14 @@ a:hover {
   justify-content: space-between;
 }
 
+.drag-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: grab;
+  font-size: 2em;
+}
+
 .add-btn {
   border-radius: 100%;
   width: 50px;
