@@ -1,19 +1,15 @@
-import { useState, useEffect, useRef } from "react";
-import Draggable from "react-draggable";
+import { useState, useEffect } from "react";
 import type { NoteContent } from "./TNoteContent";
 import Modal from "./Modal";
-import "animate.css";
+import 'animate.css';
 import PlayAnimation from "./PlayAnimation";
 
 type NoteProps = {
-    note: NoteContent;
-    renderOrder: number;
-    onDelete: (id: string) => void;
-    onUpdate: (
-        id: string,
-        patch: Partial<Pick<NoteContent, "title" | "body" | "color">>,
-    ) => void;
-};
+    note: NoteContent,
+    renderOrder: number,
+    onDelete: (id: string) => void,
+    onUpdate: (id: string, patch: Partial<Pick<NoteContent, "title" | "body" | "color">>) => void,
+}
 
 async function copyNote(text: string): Promise<void> {
     try {
@@ -24,10 +20,9 @@ async function copyNote(text: string): Promise<void> {
 }
 
 function Note(props: NoteProps) {
+
     const [draftTitle, setDraftTitle] = useState(props.note.title);
     const [draftBody, setDraftBody] = useState(props.note.body);
-    const [isDragging, setIsDragging] = useState(false);
-    const nodeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setDraftTitle(props.note.title);
@@ -36,88 +31,71 @@ function Note(props: NoteProps) {
 
     function commitTitle() {
         const next = draftTitle.trimEnd();
-        if (next !== props.note.title)
-            props.onUpdate(props.note.id, { title: next });
+        if (next !== props.note.title) props.onUpdate(props.note.id, { title: next });
     }
 
     function commitBody() {
         const next = draftBody.trimEnd();
-        if (next !== props.note.body)
-            props.onUpdate(props.note.id, { body: next });
+        if (next !== props.note.body) props.onUpdate(props.note.id, { body: next });
     }
 
     return (
-        <Draggable
-            nodeRef={nodeRef}
-            handle=".drag-handle"
-            onStart={() => setIsDragging(true)}
-            onStop={() => setIsDragging(false)}
-        >
+        <>
             <div
-                ref={nodeRef}
-                className={`note animate__animated animate__fadeIn ${isDragging ? "note--dragging" : ""}`}
+                className="note animate__animated animate__fadeIn"
                 data-color={props.note.color ? props.note.color : "white"}
-                style={
-                    {
-                        "--animation-offset": `${props.renderOrder * 100}ms`,
-                    } as React.CSSProperties
-                }
+                style={{ "--animation-offset": `${props.renderOrder * 100}ms` } as React.CSSProperties}
             >
-                <div
-                    className="note-header"
-                    style={{ cursor: isDragging ? "grabbing" : "grab" }}
-                >
+                <div className="note-header">
                     <span
                         className="editable note-title"
                         contentEditable
                         suppressContentEditableWarning={true}
-                        onMouseDown={(e) => e.stopPropagation()}
-                        onInput={(e) =>
-                            setDraftTitle(e.currentTarget.textContent ?? "")
-                        }
+                        onInput={(e) => setDraftTitle(e.currentTarget.textContent ?? "")}
                         onBlur={commitTitle}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                                e.preventDefault();
-                                e.currentTarget.blur();
+                                e.preventDefault();     // prevent newline in title
+                                e.currentTarget.blur(); // commit
                             }
                         }}
                     >
                         {props.note.title}
                     </span>
+
                     <Modal
                         id={props.note.id}
                         onDelete={props.onDelete}
                         onUpdate={props.onUpdate}
                     />
                 </div>
+
                 <hr />
+
                 <span
                     className="editable note-text"
                     contentEditable
                     suppressContentEditableWarning={true}
-                    onInput={(e) =>
-                        setDraftBody(e.currentTarget.textContent ?? "")
-                    }
+                    onInput={(e) => setDraftBody(e.currentTarget.textContent ?? "")}
                     onBlur={commitBody}
                 >
                     {props.note.body}
                 </span>
+
                 <div className="note-buttons">
                     <button
                         className="copy-btn"
                         onClick={(e) => {
                             copyNote(props.note.body);
                             PlayAnimation(e.currentTarget, "rubberBand");
-                        }}
-                    >
+                        }}>
                         Copy
                     </button>
+
                 </div>
-                <div className="drag-handle">⣶</div>
             </div>
-        </Draggable>
-    );
+        </>
+    )
 }
 
 export default Note;
