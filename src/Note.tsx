@@ -51,7 +51,7 @@ function Note(props: NoteProps) {
                         className="editable note-title"
                         contentEditable
                         suppressContentEditableWarning={true}
-                        onInput={(e) => setDraftTitle(e.currentTarget.textContent ?? "")}
+                        onInput={(e) => setDraftTitle(e.currentTarget.innerText ?? "")}
                         onBlur={commitTitle}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
@@ -76,7 +76,7 @@ function Note(props: NoteProps) {
                     className="editable note-text"
                     contentEditable
                     suppressContentEditableWarning={true}
-                    onInput={(e) => setDraftBody(e.currentTarget.textContent ?? "")}
+                    onInput={(e) => setDraftBody(e.currentTarget.innerText ?? "")}
                     onBlur={commitBody}
                 >
                     {props.note.body}
